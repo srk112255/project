@@ -1,5 +1,8 @@
 pipeline {
 	agent any 
+	environment {
+		MY_HOME_ANS = "Welcome Master to my home!"
+	}
 	stages {
 		stage ("One") {
 			steps { 
@@ -9,6 +12,7 @@ pipeline {
 		stage ("Two") {
 			steps { 
 			echo "Step 2 Executed"
+			echo "$MY_HOME_ANS"
 			}
 		}
 		stage ("Three") {
