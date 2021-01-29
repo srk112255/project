@@ -7,13 +7,15 @@ pipeline {
 		stage 'Two' {
 			echo "Step 2 Executed"
 		}
-		parallel {
-			stage 'Pre'  {
-			echo "Pre Step  Executed"
-		}
-			stage 'Post' {
-			echo "Post Step Executed"
-		}
+		stage 'Three' {
+			parallel {
+				stage 'Pre'  {
+				echo "Pre Step  Executed"
+				}
+					stage 'Post' {
+					echo "Post Step Executed"
+				}
+			}
 		}
 	}	
 }
