@@ -1,0 +1,16 @@
+node {
+  stage('SCM Checkout') {
+     git 'https://srk112255@github.com/srk112255/project'
+  }
+  
+  stage('Compile-Package') {
+    def MAVEN_HOME = tool name: 'Maven_HOME', type: 'maven'
+    sh script:'''
+          #!/bin/bash
+          echo "This is start $(pwd)"
+          cd ./my-app
+          echo "This is $(pwd)"
+        '''
+    sh "${MAVEN_HOME}/bin/mvn package"
+    }
+ }
