@@ -5,7 +5,12 @@ node {
   
   stage('Compile-Package') {
     def MAVEN_HOME = tool name: 'Maven_HOME', type: 'maven'
-    sh 'cd myapp/'
+    sh script:'''
+          #!/bin/bash
+          echo "This is start $(pwd)"
+          cd ./my-app
+          echo "This is $(pwd)"
+        '''
     sh "${MAVEN_HOME}/bin/mvn package"
     }
  }
