@@ -1,9 +1,9 @@
 node {
   stage('SCM Checkout') {
+     tool name: 'Maven_HOME', type: 'maven'
      git 'https://srk112255@github.com/srk112255/project'
   }
   
   stage('Compile-Package') {
-    tool name: 'Maven_HOME', type: 'maven'
     sh 'mvn package'
  }
