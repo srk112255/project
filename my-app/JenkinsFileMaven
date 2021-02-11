@@ -10,6 +10,7 @@ node {
           echo "This is start $(pwd)"
           cd ./my-app
           echo "This is $(pwd)"
+          ${MAVEN_HOME}/bin/mvn package
         '''
     sh "${MAVEN_HOME}/bin/mvn package"
     }
