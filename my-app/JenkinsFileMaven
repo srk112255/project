@@ -13,4 +13,10 @@ node {
         '''
     sh "${MAVEN_HOME}/bin/mvn package"
     }
+    
+    stage('SonarQube Analysis') {
+    def MAVEN_HOME = tool name: 'Maven_HOME', type: 'maven'
+    withSonarQubeEnv('SonarLocalServer') { // If you have configured more than one global server connection, you can specify its name
+      sh "${MAVEN_HOME}/bin/mvn sonar:sonar"
+    }
  }
