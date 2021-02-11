@@ -1,0 +1,31 @@
+pipeline {
+	agent any 
+	stages {
+		stage ("One") {
+			steps { 
+			echo "Step 1 Executed"
+			}
+		}
+		stage ("Two") {
+			steps { 
+			echo "Step 2 Executed"
+			}
+		}
+		stage ("Three") {
+			parallel {
+				stage ("Pre")  {
+					steps { 
+				echo "Pre Step  Executed"
+				sh "service sleep 30"
+				 }
+				}
+					stage ("Post") {
+						steps { 
+					echo "Post Step Executed"
+					sh "service --status-all"
+					}
+				}
+			}
+		}
+	}	
+}
