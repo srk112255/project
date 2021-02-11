@@ -1,0 +1,31 @@
+node {
+  stage('SCM Checkout') {
+     git 'https://srk112255@github.com/srk112255/project'
+  }
+  
+  stage('Compile-Package') {
+    def MAVEN_HOME = tool name: 'Maven_HOME', type: 'maven'
+    sh script:'''
+          #!/bin/bash
+          echo "This is start $(pwd)"
+          cd ./my-app
+          echo "This is $(pwd)"
+        '''
+    sh "${MAVEN_HOME}/bin/mvn package"
+    }
+    
+    stage('SonarQube Analysis') {
+    def MAVEN_HOME = tool name: 'Maven_HOME', type: 'maven'
+    withSonarQubeEnv('SonarLocalServer') { // If you have configured more than one global server connection, you can specify its name
+      sh "${MAVEN_HOME}/bin/mvn sonar:sonar"
+    }
+    }
+    
+    stage("Quality Gate Status Check"){
+          timeout(time: 5, unit: 'MINUTES') {
+              def qg = waitForQualityGate()
+              if (qg.status != 'OK') {
+                  error "Pipeline aborted due to quality gate failure: ${qg.status}"
+              }
+          }
+ }
