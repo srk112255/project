@@ -1,0 +1,3 @@
+[submodule "spring-boot-sample-app"]
+	path = spring-boot-sample-app
+	url = https://github.com/Romeh/spring-boot-sample-app.git
