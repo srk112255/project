@@ -16,8 +16,8 @@ pipeline {
                     // **       in the global configuration.
                     echo 'Pulling...' + env.BRANCH_NAME
                     def mvnHome = tool name: 'Maven_HOME', type: 'maven'
-
-                    if (isUnix()) {
+                    def isUnix = 'true'
+                    if (isUnix) {
                         def targetVersion = getDevVersion()
                         print 'target build version...'
                         print targetVersion
