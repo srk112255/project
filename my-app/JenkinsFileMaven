@@ -20,7 +20,7 @@ node {
       sh "${MAVEN_HOME}/bin/mvn sonar:sonar"
     }
     }
-     stage('Post Build Message') {
+     stage('Post Build Message Step') {
      sh script:'''
         echo "Build has been completed"
      '''
