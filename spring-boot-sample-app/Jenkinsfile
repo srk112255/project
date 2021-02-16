@@ -16,7 +16,7 @@ pipeline {
                     // **       in the global configuration.
                     echo 'Pulling...' + env.BRANCH_NAME
                     def mvnHome = tool name: 'Maven_HOME', type: 'maven'
-                    def isUnix = 'true'
+                    def isUnix = "true"
                     if (isUnix) {
                         def targetVersion = getDevVersion()
                         print 'target build version...'
@@ -45,7 +45,8 @@ pipeline {
             steps {
                 script {
                     def mvnHome = tool name: 'Maven_HOME', type: 'maven'
-                    if (isUnix()) {
+                    def isUnix = "true"
+                    if (isUnix) {
                         // just to trigger the integration test without unit testing
                         sh "'${mvnHome}/bin/mvn'  verify -Dunit-tests.skip=true"
                     } else {
@@ -202,7 +203,7 @@ pipeline {
                         timeout(time: 1, unit: 'MINUTES') {
 
                             script {
-                                def mvnHome = tool 'Maven 3.5.2'
+                                def mvnHome = tool name: 'Maven_HOME', type: 'maven'
                                 // NOTE : if you change the test class name change it here as well
                                 sh "'${mvnHome}/bin/mvn' -Dtest=ApplicationE2E surefire:test"
                             }
@@ -306,7 +307,7 @@ def getReleaseVersion() {
                parallel(
                        IntegrationTest: {
                            script {
-                               def mvnHome = tool 'Maven 3.5.2'
+                               def mvnHome = tool name: 'Maven_HOME', type: 'maven'
                                if (isUnix()) {
                                    sh "'${mvnHome}/bin/mvn'  verify -Dunit-tests.skip=true"
                                } else {
